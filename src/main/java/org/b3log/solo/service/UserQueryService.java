@@ -182,7 +182,14 @@ public class UserQueryService {
             throw new ServiceException(e);
         }
     }
-
+    public JSONObject getuserByUserName(String userName) throws ServiceException{
+        try {
+            return userRepository.getByName(userName);
+        } catch (final RepositoryException e) {
+            LOGGER.log(Level.ERROR, "Gets user by userName[" + userName + "] failed", e);
+            throw new ServiceException(e);
+        }
+    }
     /**
      * Gets users by the specified request json object.
      *
@@ -322,4 +329,5 @@ public class UserQueryService {
     public void setUserRepository(final UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
 }

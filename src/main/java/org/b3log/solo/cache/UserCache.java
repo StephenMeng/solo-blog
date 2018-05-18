@@ -98,7 +98,6 @@ public class UserCache {
 
         return JSONs.clone(user);
     }
-
     /**
      * Adds or updates the specified user.
      *
@@ -125,4 +124,6 @@ public class UserCache {
         final String email = user.optString(User.USER_EMAIL);
         emailCache.remove(email);
     }
+
+
 }

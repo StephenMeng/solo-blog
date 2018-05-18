@@ -38,6 +38,7 @@ public interface UserRepository extends Repository {
      * @throws RepositoryException repository exception 
      */
     JSONObject getByEmail(final String email) throws RepositoryException;
+    JSONObject getByName(String userName)throws RepositoryException;;
 
     /**
      * Determine whether the specified email is administrator's.
@@ -56,4 +57,5 @@ public interface UserRepository extends Repository {
      * @throws RepositoryException repository exception
      */
     JSONObject getAdmin() throws RepositoryException;
+
 }

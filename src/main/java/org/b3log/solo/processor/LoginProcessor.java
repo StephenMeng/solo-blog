@@ -193,23 +193,23 @@ public class LoginProcessor {
 
             jsonObject.put(Keys.MSG, loginFailLabel);
 
-            final String userEmail = requestJSONObject.getString(User.USER_EMAIL);
+            final String userName = requestJSONObject.getString(User.USER_NAME);
             final String userPwd = requestJSONObject.getString(User.USER_PASSWORD);
 
-            if (Strings.isEmptyOrNull(userEmail) || Strings.isEmptyOrNull(userPwd)) {
+            if (Strings.isEmptyOrNull(userName) || Strings.isEmptyOrNull(userPwd)) {
                 return;
             }
 
-            final JSONObject user = userQueryService.getUserByEmail(userEmail);
+            final JSONObject user = userQueryService.getuserByUserName(userName);
             if (null == user) {
-                LOGGER.log(Level.WARN, "Not found user[email={0}]", userEmail);
+                LOGGER.log(Level.WARN, "Not found user[name={0}]", userName);
                 return;
             }
 
             if (MD5.hash(userPwd).equals(user.getString(User.USER_PASSWORD))) {
                 Sessions.login(request, context.getResponse(), user);
 
-                LOGGER.log(Level.INFO, "Logged in[email={0}]", userEmail);
+                LOGGER.log(Level.INFO, "Logged in[name={0}]", userName);
 
                 jsonObject.put(Common.IS_LOGGED_IN, true);
 

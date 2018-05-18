@@ -108,6 +108,24 @@ public class UserRepositoryImpl extends AbstractRepository implements UserReposi
     }
 
     @Override
+    public JSONObject getByName(String userName) throws RepositoryException {
+        JSONObject ret;
+        final Query query = new Query().setPageCount(1).
+                setFilter(new PropertyFilter(User.USER_NAME, FilterOperator.EQUAL, userName));
+
+        final JSONObject result = get(query);
+        final JSONArray array = result.optJSONArray(Keys.RESULTS);
+        if (0 == array.length()) {
+            return null;
+        }
+
+        ret = array.optJSONObject(0);
+        userCache.putUser(ret);
+
+        return ret;
+    }
+
+    @Override
     public JSONObject getAdmin() throws RepositoryException {
         JSONObject ret = userCache.getAdmin();
         if (null != ret) {
